@@ -12,13 +12,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         alpentalSnowData = (TextView) findViewById(R.id.snow_text_view);
-
+        alpentalSnowData.setText("");
         String[] alpentalWeather = {
-            "Aplental", "22", "26", "100"
+            "Alpental", "Low: 22", "High: 26", "Base: 100"
         };
+
+        printSnowData(alpentalWeather);
     }
 
-    public void printSnowData() {
-
+    public void printSnowData(String[] snowData) {
+        for(String i : snowData) {
+            alpentalSnowData.append(i + "\n");
+        }
     }
 }
