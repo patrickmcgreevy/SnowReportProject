@@ -18,30 +18,31 @@ public class MainActivity extends AppCompatActivity {
 
         mainText = (TextView) findViewById(R.id.snow_text_view);
         text2 = (TextView) findViewById(R.id.text2);
+
         final resort alpental = new resort("Alpental", 33, 26, "Cloudy", 20);
+        final resort crystal =  new resort("Crystal", 26, 18, "Snowing", 30);
+
         alpButton = (Button) findViewById(R.id.alp_button);
+        crystalButton = (Button) findViewById(R.id.crystal_button);
 
-        //sets the button's onclick function. Runs the printSnowData() method
-        alpButton.setOnClickListener(new View.OnClickListener() {
-           public void onClick(View v) {
-               printSnowData(alpental.getDataArray());
-           }
-        });
-        //uncomment to work on making the setButton method work. Uncommenting breaks code.
-        //setButton(crystalButton, alpental);
+        setButton(alpButton, alpental, mainText);
+        setButton(crystalButton, crystal, text2);
     }
 
-    //Adds the text of the snow data to the TextView by taking the resort.getDataArray() method as a parameter
-    public void printSnowData(String[] snowData) {
+    //Adds the text of the snow data to the specified TextView by taking a String[] and a TextView as paramteres
+    public void printSnowData(String[] snowData, TextView textView) {
+        textView.set
         for(String i : snowData) {
-            mainText.append(i + "\n");
+            textView.append(i + " ");
         }
+        textView.append("\n");
     }
 
-    public void setButton(Button button, final resort resort) {
+    public void setButton(Button button, final resort res, final TextView textView) {
         button.setOnClickListener(new View.OnClickListener() {
+            //@Override
             public void onClick(View v) {
-                printSnowData(resort.getDataArray());
+                printSnowData(res.getDataArray(), textView);
             }
         });
     }

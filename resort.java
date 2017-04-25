@@ -46,7 +46,7 @@ public class resort {
     //returns the data of the resort as a String array
     public String[] getDataArray() {
         String[] data = {
-                "Alpental", "Low: 22", "High: 26", "Base: 100"
+                resName, "Low: " + lowTemp, "High: " + highTemp, weather, "Base: " + snowDepth
         };
         return data;
     }
