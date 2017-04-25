@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Adds the text of the snow data to the specified TextView by taking a String[] and a TextView as paramteres
     public void printSnowData(String[] snowData, TextView textView) {
-        textView.set
+        textView.setText("");
         for(String i : snowData) {
             textView.append(i + " ");
         }
