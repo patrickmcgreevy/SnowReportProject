@@ -6,11 +6,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class MainActivity extends AppCompatActivity {
     private TextView mainText;
     private Button alpButton;
     private TextView text2;
     private Button crystalButton;
+    private Scanner resScanner;
+    private File alpentalFile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,8 +25,14 @@ public class MainActivity extends AppCompatActivity {
         mainText = (TextView) findViewById(R.id.snow_text_view);
         text2 = (TextView) findViewById(R.id.text2);
 
-        final resort alpental = new resort("Alpental", 33, 26, "Cloudy", 20);
-        final resort crystal =  new resort("Crystal", 26, 18, "Snowing", 30);
+        alpentalFile = new File("src\\main\\assets\\alpental.txt");
+        resScanner alpScan = new resScanner("T:\\crystal.txt");
+
+        final resort alpental = new resort("Alpental", "33", "26", "Cloudy", "20");
+        //final resort alpental = new resort(readFile(resScanner, alpentalFile));
+        //final resort crystal =  new resort("Crystal", 26, 18, "Snowing", 30);
+        //final resort crystal = new resort(readFile(resScanner, alpentalFile));
+        final resort crystal = new resort(alpScan.readFile());
 
         alpButton = (Button) findViewById(R.id.alp_button);
         crystalButton = (Button) findViewById(R.id.crystal_button);
@@ -45,5 +57,20 @@ public class MainActivity extends AppCompatActivity {
                 printSnowData(res.getDataArray(), textView);
             }
         });
+    }
+    //Doesnt appear to be running the four loop
+    public String[] readFile(Scanner console, File file) {
+        String[] data = new String[5];
+        try {
+            console = new Scanner(file);
+            for(int i = 0; i <= 4; i++) {
+                data[i] = console.next();
+            }
+        }
+        catch (FileNotFoundException e) {
+            data[0] = "I don't work";
+            e.printStackTrace();
+        }
+        return data;
     }
 }

@@ -6,15 +6,24 @@ package com.example.ros_pjmcgreevy.snowreport;
 
 public class resort {
     private String resName;
-    private int lowTemp;
-    private int highTemp;
+    private String lowTemp;
+    private String highTemp;
     private String weather;
-    private int snowDepth;
+    private String snowDepth;
 
-    public resort(String resName, int lowTemp, int highTemp, String weather, int snowDepth) {
+    //public resort(String resName, int lowTemp, int highTemp, String weather, int snowDepth) {
+    public resort(String[] resData) {
+        this.resName = resData[0];
+        this.lowTemp = resData[1];
+        this.highTemp =  resData[2];
+        this.weather = resData[3];
+        this.snowDepth = resData[4];
+    }
+
+    public resort(String resName, String lowTemp, String highTemp, String weather, String snowDepth) {
         this.resName = resName;
         this.lowTemp = lowTemp;
-        this.highTemp =  highTemp;
+        this.highTemp = highTemp;
         this.weather = weather;
         this.snowDepth = snowDepth;
     }
@@ -23,11 +32,11 @@ public class resort {
         return resName;
     }
 
-    public int getLowTemp() {
+    public String getLowTemp() {
         return lowTemp;
     }
 
-    public int getHighTemp() {
+    public String getHighTemp() {
         return highTemp;
     }
 
@@ -35,7 +44,7 @@ public class resort {
         return weather;
     }
 
-    public int getSnowDepth() {
+    public String getSnowDepth() {
         return snowDepth;
     }
     //returns the data of the resort as a string broken by new lines after each pice of data
@@ -46,7 +55,7 @@ public class resort {
     //returns the data of the resort as a String array
     public String[] getDataArray() {
         String[] data = {
-                resName, "Low: " + lowTemp, "High: " + highTemp, weather, "Base: " + snowDepth
+                resName, " Low: " + lowTemp, " High: " + highTemp, weather, " Base: " + snowDepth
         };
         return data;
     }
