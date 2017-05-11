@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
         final resort alpental = new resort("Alpental", "33", "26", "Cloudy", "20");
         //final resort alpental = new resort(readFile(resScanner, alpentalFile));
-        //final resort crystal =  new resort("Crystal", 26, 18, "Snowing", 30);
+        final resort crystal =  new resort("Crystal", "26", "18", "Snowing", "30");
         //final resort crystal = new resort(readFile(resScanner, alpentalFile));
-        final resort crystal = new resort(alpScan.readFile());
+        //final resort crystal = new resort(alpScan.readFile());
 
         alpButton = (Button) findViewById(R.id.alp_button);
         crystalButton = (Button) findViewById(R.id.crystal_button);
@@ -50,11 +50,19 @@ public class MainActivity extends AppCompatActivity {
         textView.append("\n");
     }
 
-    public void setButton(Button button, final resort res, final TextView textView) {
+    public void setButton(final Button button, final resort res, final TextView textView) {
         button.setOnClickListener(new View.OnClickListener() {
             //@Override
             public void onClick(View v) {
-                printSnowData(res.getDataArray(), textView);
+                res.toggle();
+                if(res.checkText()) {
+                    textView.setPadding(0,0,0,0);
+                    printSnowData(res.getDataArray(), textView);
+                }
+                else {
+                    textView.setPadding(0, 0, 0, 25);
+                    textView.setText("");
+                }
             }
         });
     }

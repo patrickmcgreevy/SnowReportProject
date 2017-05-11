@@ -10,6 +10,7 @@ public class resort {
     private String highTemp;
     private String weather;
     private String snowDepth;
+    private boolean textOn = false;
 
     //public resort(String resName, int lowTemp, int highTemp, String weather, int snowDepth) {
     public resort(String[] resData) {
@@ -58,5 +59,13 @@ public class resort {
                 resName, " Low: " + lowTemp, " High: " + highTemp, weather, " Base: " + snowDepth
         };
         return data;
+    }
+
+    public boolean checkText() {
+        return textOn;
+    }
+
+    public void toggle() {
+        textOn ^= true;
     }
 }
