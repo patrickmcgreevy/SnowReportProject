@@ -1,5 +1,6 @@
 package com.example.ros_pjmcgreevy.snowreport;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button switchActivity = (Button) findViewById(R.id.swapButton);
+        switchActivity.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                launchActivity();
+            }
+        });
 
         mainText = (TextView) findViewById(R.id.snow_text_view);
         text2 = (TextView) findViewById(R.id.text2);
@@ -66,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    //Doesnt appear to be running the four loop
+    //Doesnt appear to be running the for loop
     public String[] readFile(Scanner console, File file) {
         String[] data = new String[5];
         try {
@@ -80,5 +88,10 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return data;
+    }
+
+    public void launchActivity() {
+        Intent intent = new Intent(this, openActivity.class);
+        startActivity(intent);
     }
 }
