@@ -3,8 +3,12 @@ package com.example.ros_pjmcgreevy.snowreport;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.File;
@@ -47,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         setButton(alpButton, alpental, mainText);
         setButton(crystalButton, crystal, text2);
+        buildButton(5);
     }
 
     //Adds the text of the snow data to the specified TextView by taking a String[] and a TextView as paramteres
@@ -93,5 +98,16 @@ public class MainActivity extends AppCompatActivity {
     public void launchActivity() {
         Intent intent = new Intent(this, openActivity.class);
         startActivity(intent);
+    }
+
+    public Button buildButton(int id) {
+        Button button = new Button(this);
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.activity_main);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.BELOW, R.id.text2);
+        rl.addView(button, lp);
+        button.setId(id);
+
+        return button;
     }
 }
