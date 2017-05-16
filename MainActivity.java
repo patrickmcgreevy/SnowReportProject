@@ -34,24 +34,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mainText = (TextView) findViewById(R.id.snow_text_view);
-        text2 = (TextView) findViewById(R.id.text2);
-
-        alpentalFile = new File("src\\main\\assets\\alpental.txt");
-        resScanner alpScan = new resScanner("T:\\crystal.txt");
-
+//        mainText = (TextView) findViewById(R.id.snow_text_view);
+//        text2 = (TextView) findViewById(R.id.text2);
         final resort alpental = new resort("Alpental", "33", "26", "Cloudy", "20");
-        //final resort alpental = new resort(readFile(resScanner, alpentalFile));
         final resort crystal =  new resort("Crystal", "26", "18", "Snowing", "30");
+//        alpButton = (Button) findViewById(R.id.alp_button);
+//        crystalButton = (Button) findViewById(R.id.crystal_button);
+//        setButton(alpButton, alpental, mainText);
+//        setButton(crystalButton, crystal, text2);
+
+//        alpentalFile = new File("src\\main\\assets\\alpental.txt");
+//        resScanner alpScan = new resScanner("T:\\crystal.txt");
+
+        //final resort alpental = new resort(readFile(resScanner, alpentalFile));
         //final resort crystal = new resort(readFile(resScanner, alpentalFile));
         //final resort crystal = new resort(alpScan.readFile());
 
-        alpButton = (Button) findViewById(R.id.alp_button);
-        crystalButton = (Button) findViewById(R.id.crystal_button);
-
-        setButton(alpButton, alpental, mainText);
-        setButton(crystalButton, crystal, text2);
-        buildButton(5);
+        resort[] resArray = new resort[3];
+        resArray[1] = alpental;
+        resArray[2] = crystal;
+        for(int i = 1; i <= 2; i++) {
+            compileButtonView(resArray[i], i);
+        }
     }
 
     //Adds the text of the snow data to the specified TextView by taking a String[] and a TextView as paramteres
@@ -100,14 +104,34 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public Button buildButton(int id) {
+    public Button buildButton(String name, int n) {
         Button button = new Button(this);
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.activity_main);
-        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp.addRule(RelativeLayout.BELOW, R.id.text2);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.BELOW, R.id.swapButton);
         rl.addView(button, lp);
-        button.setId(id);
+        button.setText(name);
+        //button.setId(id);
 
         return button;
+    }
+
+    public TextView buildView(int id, Button button) {
+        TextView tv = new TextView(this);
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.activity_main);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.addRule(RelativeLayout.BELOW, button.getId());
+        rl.addView(tv, lp);
+        tv.setId(id + 10);
+        tv.setText("Iwork");
+
+        return tv;
+    }
+
+    public void compileButtonView(resort res, int n) {
+        Button button = buildButton(res.getResName(), n);
+        TextView tv = buildView(n, button);
+
+        setButton(button, res, tv);
     }
 }
