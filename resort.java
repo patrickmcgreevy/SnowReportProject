@@ -64,7 +64,7 @@ public class resort {
     public boolean checkText() {
         return textOn;
     }
-
+    //Switches the boolean state of textOn
     public void toggle() {
         textOn ^= true;
     }

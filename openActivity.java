@@ -13,7 +13,7 @@ public class openActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open);
-
+        //Sets the button to run launchActivity() on click
         swapMain = (Button) findViewById(R.id.swap);
         swapMain.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -21,7 +21,7 @@ public class openActivity extends AppCompatActivity {
             }
         });
     }
-
+    //Launches the MainActivity
     private void launchActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

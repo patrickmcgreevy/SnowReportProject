@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 //        text2 = (TextView) findViewById(R.id.text2);
         final resort alpental = new resort("Alpental", "33", "26", "Cloudy", "20");
         final resort crystal =  new resort("Crystal", "26", "18", "Snowing", "30");
+        final resort baker =  new resort("Baker", "27", "20", "Dumping Snow", "50");
 //        alpButton = (Button) findViewById(R.id.alp_button);
 //        crystalButton = (Button) findViewById(R.id.crystal_button);
 //        setButton(alpButton, alpental, mainText);
@@ -50,11 +51,14 @@ public class MainActivity extends AppCompatActivity {
         //final resort crystal = new resort(readFile(resScanner, alpentalFile));
         //final resort crystal = new resort(alpScan.readFile());
 
-        resort[] resArray = new resort[3];
+        resort[] resArray = new resort[4];
+        Button[] buttonArray = new Button[4];
+        TextView[] textViewArray = new TextView[4];
         resArray[1] = alpental;
         resArray[2] = crystal;
-        for(int i = 1; i <= 2; i++) {
-            compileButtonView(resArray[i], i);
+        resArray[3] = baker;
+        for(int i = 1; i <= 3; i++) {
+            compileButtonView(resArray[i], i, buttonArray, textViewArray);
         }
     }
 
@@ -66,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
         }
         textView.append("\n");
     }
-
+    //Takes Button button, resort res, TextView textView as parameters and sets the button to
+    //modify the textView on click with the data from res
     public void setButton(final Button button, final resort res, final TextView textView) {
         button.setOnClickListener(new View.OnClickListener() {
             //@Override
@@ -83,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    //Doesnt appear to be running the for loop
+    //Currently useless as I can't read files, reads a file and returns a String[] that contains the resort conditions
     public String[] readFile(Scanner console, File file) {
         String[] data = new String[5];
         try {
@@ -98,39 +103,53 @@ public class MainActivity extends AppCompatActivity {
         }
         return data;
     }
-
+    //Launches openActivity
     public void launchActivity() {
         Intent intent = new Intent(this, openActivity.class);
         startActivity(intent);
     }
-
-    public Button buildButton(String name, int n) {
+    //Takes String name, int n, ant TextView[] tvArray and builds a button, and adds the layout
+    public Button buildButton(String name, int n, TextView[] tvArray) {
         Button button = new Button(this);
+        //finds the RelativeLayout in activity_main.xml
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.activity_main);
+        //creates new LayoutParams for the RelativeLayout rl
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp.addRule(RelativeLayout.BELOW, R.id.swapButton);
+        //If this is the first button created it's aligned BELOW the back button, otherwise it's placed BELOW the previous TextView
+        if(n == 1) {
+            lp.addRule(RelativeLayout.BELOW, R.id.swapButton);
+        } else {
+            lp.addRule(RelativeLayout.BELOW, tvArray[n-1].getId());
+        }
+        //adds the button and the LayoutParams to the RelativeLayout rl
         rl.addView(button, lp);
         button.setText(name);
-        //button.setId(id);
+        button.setId(n);
 
         return button;
     }
-
+    //Takes int id and Button button as parameters and builds a new TextView
     public TextView buildView(int id, Button button) {
         TextView tv = new TextView(this);
+        //finds the RelativeLayout in the activity_main.xml
         RelativeLayout rl = (RelativeLayout) findViewById(R.id.activity_main);
+        //creates new LayoutParams for the RelativeLayout rl
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp.addRule(RelativeLayout.BELOW, button.getId());
+        //adds the TextView and the LayoutParams to the RelativeLayout rl
         rl.addView(tv, lp);
+        //Aligns the TextView BELOW the previous button
+        lp.addRule(RelativeLayout.BELOW, button.getId());
         tv.setId(id + 10);
-        tv.setText("Iwork");
 
         return tv;
     }
-
-    public void compileButtonView(resort res, int n) {
-        Button button = buildButton(res.getResName(), n);
+    //Runs buildButton and buildView and compiles them to make the button work using setButton
+    public void compileButtonView(resort res, int n, Button[] buttonArray, TextView[] textViewArray) {
+        Button button = buildButton(res.getResName(), n, textViewArray);
         TextView tv = buildView(n, button);
+
+        buttonArray[n] = button;
+        textViewArray[n] = tv;
 
         setButton(button, res, tv);
     }
