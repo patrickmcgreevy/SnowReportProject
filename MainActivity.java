@@ -16,12 +16,12 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView mainText;
-    private Button alpButton;
-    private TextView text2;
-    private Button crystalButton;
-    private Scanner resScanner;
-    private File alpentalFile;
+//    private TextView mainText;
+//    private Button alpButton;
+//    private TextView text2;
+//    private Button crystalButton;
+//    private Scanner resScanner;
+//    private File alpentalFile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
 //        mainText = (TextView) findViewById(R.id.snow_text_view);
 //        text2 = (TextView) findViewById(R.id.text2);
-        final resort alpental = new resort("Alpental", "33", "26", "Cloudy", "20");
-        final resort crystal =  new resort("Crystal", "26", "18", "Snowing", "30");
-        final resort baker =  new resort("Baker", "27", "20", "Dumping Snow", "50");
+        final resort alpental = new resort("Alpental", "26", "33", "Cloudy", "20");
+        final resort crystal =  new resort("Crystal", "18", "26", "Snowing", "30");
+        final resort baker =  new resort("Baker", "20", "27", "Dumping Snow", "50");
 //        alpButton = (Button) findViewById(R.id.alp_button);
 //        crystalButton = (Button) findViewById(R.id.crystal_button);
 //        setButton(alpButton, alpental, mainText);
@@ -51,18 +51,16 @@ public class MainActivity extends AppCompatActivity {
         //final resort crystal = new resort(readFile(resScanner, alpentalFile));
         //final resort crystal = new resort(alpScan.readFile());
 
-        resort[] resArray = new resort[4];
-        Button[] buttonArray = new Button[4];
-        TextView[] textViewArray = new TextView[4];
-        resArray[1] = alpental;
-        resArray[2] = crystal;
-        resArray[3] = baker;
+        resort[] resArray = buildResArray(crystal, baker, alpental);
+        Button[] buttonArray = new Button[resArray.length];
+        TextView[] textViewArray = new TextView[resArray.length];
+
         for(int i = 1; i <= 3; i++) {
             compileButtonView(resArray[i], i, buttonArray, textViewArray);
         }
     }
 
-    //Adds the text of the snow data to the specified TextView by taking a String[] and a TextView as paramteres
+    //Adds the text of the snow data to the specified TextView by taking a String[] and a TextView as parameters
     public void printSnowData(String[] snowData, TextView textView) {
         textView.setText("");
         for(String i : snowData) {
@@ -89,10 +87,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     //Currently useless as I can't read files, reads a file and returns a String[] that contains the resort conditions
-    public String[] readFile(Scanner console, File file) {
+     public String[] readFile(File file) {
         String[] data = new String[5];
         try {
-            console = new Scanner(file);
+            Scanner console = new Scanner(file);
             for(int i = 0; i <= 4; i++) {
                 data[i] = console.next();
             }
@@ -152,5 +150,11 @@ public class MainActivity extends AppCompatActivity {
         textViewArray[n] = tv;
 
         setButton(button, res, tv);
+    }
+
+    public resort[] buildResArray(resort a, resort b, resort c) {
+        return new resort[] {
+                null, a, b, c
+        };
     }
 }

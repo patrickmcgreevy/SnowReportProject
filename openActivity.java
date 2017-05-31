@@ -1,5 +1,6 @@
 package com.example.ros_pjmcgreevy.snowreport;
 
+import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,13 +18,25 @@ public class openActivity extends AppCompatActivity {
         swapMain = (Button) findViewById(R.id.swap);
         swapMain.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                launchActivity();
+                launchMainActivity();
+            }
+        });
+
+        Button swapNewRes = (Button) findViewById(R.id.newResBut);
+        swapNewRes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                launchNewResActivity();
             }
         });
     }
     //Launches the MainActivity
-    private void launchActivity() {
+    private void launchMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void launchNewResActivity() {
+        Intent intent = new Intent(this, newResort.class);
         startActivity(intent);
     }
 }
