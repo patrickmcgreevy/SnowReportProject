@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class newResort extends AppCompatActivity {
 
@@ -14,10 +15,18 @@ public class newResort extends AppCompatActivity {
         setContentView(R.layout.activity_new_resort);
 
         Button back = (Button) findViewById(R.id.toOpen);
-
         back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 launchActivity();
+            }
+        });
+
+        Button addRes = (Button) findViewById(R.id.newRes);
+        addRes.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                TextView test = (TextView) findViewById(R.id.testView);
+
+                test.append("I work");
             }
         });
 

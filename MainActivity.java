@@ -34,24 +34,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        mainText = (TextView) findViewById(R.id.snow_text_view);
-//        text2 = (TextView) findViewById(R.id.text2);
         final resort alpental = new resort("Alpental", "26", "33", "Cloudy", "20");
         final resort crystal =  new resort("Crystal", "18", "26", "Snowing", "30");
         final resort baker =  new resort("Baker", "20", "27", "Dumping Snow", "50");
-//        alpButton = (Button) findViewById(R.id.alp_button);
-//        crystalButton = (Button) findViewById(R.id.crystal_button);
-//        setButton(alpButton, alpental, mainText);
-//        setButton(crystalButton, crystal, text2);
+//      final resort whistler = new resort(new resScanner("src\\main\\assets\\crystal.txt").readFile());
 
-//        alpentalFile = new File("src\\main\\assets\\alpental.txt");
-//        resScanner alpScan = new resScanner("T:\\crystal.txt");
 
-        //final resort alpental = new resort(readFile(resScanner, alpentalFile));
-        //final resort crystal = new resort(readFile(resScanner, alpentalFile));
-        //final resort crystal = new resort(alpScan.readFile());
-
-        resort[] resArray = buildResArray(crystal, baker, alpental);
+        resort[] resArray = new resort[] {null, alpental, crystal, baker};
         Button[] buttonArray = new Button[resArray.length];
         TextView[] textViewArray = new TextView[resArray.length];
 
@@ -150,11 +139,5 @@ public class MainActivity extends AppCompatActivity {
         textViewArray[n] = tv;
 
         setButton(button, res, tv);
-    }
-
-    public resort[] buildResArray(resort a, resort b, resort c) {
-        return new resort[] {
-                null, a, b, c
-        };
     }
 }
